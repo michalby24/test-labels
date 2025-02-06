@@ -16,9 +16,8 @@ metadata:
     component: {{ $chartName }}
     environment: {{ include "ts-server-boilerplate.environment" . }}
     release: {{ $releaseName }}
-    {{- $builerLabels := include "ts-server-boilerplate.labels" . -}}
-    {{- $builerLabels := include "libchart.labels" . -}}
-    {{- $mergedLabels := merge $builerLabels $builerLabels | nindent 4 }}
+    {{- include "ts-server-boilerplate.labels" . | nindent 4 }}
+    {{- include "libchart.labels" . | nindent 4 }}
   annotations:
     {{- include "libchart.annotations" . | nindent 4 }}
 spec:

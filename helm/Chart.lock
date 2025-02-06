@@ -1,6 +1,6 @@
 dependencies:
 - name: libchart
   repository: oci://acrarolibotnonprod.azurecr.io/helm/infra
-  version: 0.1.10
-digest: sha256:f70a727e765cf5cb130231fb3bd89b3b54d660c67be5098c044900f94668c04c
-generated: "2025-02-06T13:40:30.986709352+02:00"
+  version: 0.1.11
+digest: sha256:9e5052c73e60f8527ef35406c83117058ae2f2f4b29871b22b51f0d63c27378c
+generated: "2025-02-06T15:52:01.420916439+02:00"

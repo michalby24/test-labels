@@ -1,0 +1,152 @@
+---
+# Source: test-labels/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: release-name-test-labels-configmap
+data:
+  REQUEST_PAYLOAD_LIMIT: "1mb"
+  RESPONSE_COMPRESSION_ENABLED: "true"
+  LOG_LEVEL: "info"
+  LOG_PRETTY_PRINT_ENABLED: "false"
+  
+  
+  npm_config_cache: /tmp/
+  CONFIG_NAME: "service-name"
+  CONFIG_VERSION: "latest"
+  CONFIG_OFFLINE_MODE: "false"
+  CONFIG_SERVER_URL: "http://localhost:8080/api"
+---
+# Source: test-labels/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: release-name-test-labels-service
+  labels:
+    app: test-labels
+    component: test-labels
+    environment: development
+    release: release-name
+    helm.sh/chart: test-labels-1.0.0
+    app.kubernetes.io/name: test-labels
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: test-labels
+    release: release-name
+    run: release-name-test-labels
+    app.kubernetes.io/name: test-labels
+    app.kubernetes.io/instance: release-name
+---
+# Source: test-labels/templates/deployment.yaml
+michsimichalapiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-test-labels-deployment
+  labels:
+    app: test-labels
+    component: test-labels
+    environment: development
+    release: release-name
+    helm.sh/chart: test-labels-1.0.0
+    app.kubernetes.io/name: test-labels
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: test-labels
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: test-labels-1.0.0
+    app.kubernetes.io/created-by: "michal"
+    app.kubernetes.io/component: "backend"
+    app.kubernetes.io/part-of: "michsi"
+    mapcolonies.io/environment: "dev"
+    mapcolonies.io/release-version: "v1.1.0"
+    mapcolonies.io/owner: "infra"
+    mapcolonies.io/gis-domain: "infra"
+  annotations:
+    checksum/configmap: "1ae968e8fc7df7e0bd128777712dcdcec6f3808b222cb3ef66ba04e09b29adaf"
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "80"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: test-labels
+      release: release-name
+      run: release-name-test-labels
+      app.kubernetes.io/name: test-labels
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      labels:
+        app: test-labels
+        release: release-name
+        run: release-name-test-labels
+        app.kubernetes.io/name: test-labels
+        app.kubernetes.io/instance: release-name
+      annotations:
+    spec:
+      containers:
+        - name: release-name-test-labels-deployment
+          image: ts-server-boilerplate:v
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+          env:
+            - name: SERVER_PORT
+              value: "8080"            
+          envFrom:
+            - configMapRef:
+                name: release-name-test-labels-configmap
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+            httpGet:
+              path: /liveness
+              port: 8080
+          readinessProbe:
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+            httpGet:
+              path: /liveness
+              port: 8080
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: 'nginx-extra-configmap'
+---
+# Source: test-labels/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: release-name-test-labels-route
+  annotations:
+spec:
+  path: /
+  to:
+    kind: Service
+    name: release-name-test-labels-service
+  tls:
+    termination: "edge"
+    insecureEdgeTerminationPolicy: "Redirect"

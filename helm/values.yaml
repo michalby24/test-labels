@@ -1,4 +1,4 @@
-labels:
+deployment:
   createdBy: "michal" 
   component: "backend"
   partOf: "michsi"
@@ -6,7 +6,7 @@ labels:
   releaseVersion: "v1.1.0"
   owner: "infra"
   gisDomain: "infra"
-
+  
 monitoring:
   path: "/metrics"
   port: "80"
