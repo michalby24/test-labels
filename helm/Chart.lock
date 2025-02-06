@@ -1,6 +1,6 @@
 dependencies:
-- name: libchart
+- name: labels-and-annotaions
   repository: oci://acrarolibotnonprod.azurecr.io/helm/infra
-  version: 0.1.11
-digest: sha256:9e5052c73e60f8527ef35406c83117058ae2f2f4b29871b22b51f0d63c27378c
-generated: "2025-02-06T15:52:01.420916439+02:00"
+  version: 0.1.0
+digest: sha256:af035af46fb8d5c89ec07538d457ad63b6d8f973162007127cc386e3f1978c55
+generated: "2025-02-06T16:09:57.501427881+02:00"

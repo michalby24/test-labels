@@ -4,6 +4,6 @@ description: A Helm chart for ts-server-boilerplate service
 type: application
 version: 1.0.0
 dependencies:
-  - name: libchart
-    version: 0.1.11
+  - name: labels-and-annotaions
+    version: 0.1.0
     repository: oci://acrarolibotnonprod.azurecr.io/helm/infra
