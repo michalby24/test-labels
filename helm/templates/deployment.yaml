@@ -1,3 +1,5 @@
+{{- include "libchart.validateLabelsAndAnnotations" . -}}
+
 {{- $releaseName := .Release.Name -}}
 {{- $chartName := include "ts-server-boilerplate.name" . -}}
 {{- $cloudProviderFlavor := include "ts-server-boilerplate.cloudProviderFlavor" . -}}
@@ -14,7 +16,11 @@ metadata:
     component: {{ $chartName }}
     environment: {{ include "ts-server-boilerplate.environment" . }}
     release: {{ $releaseName }}
-    {{- include "ts-server-boilerplate.labels" . | nindent 4 }}
+    {{- $builerLabels := include "ts-server-boilerplate.labels" . -}}
+    {{- $builerLabels := include "libchart.labels" . -}}
+    {{- $mergedLabels := merge $builerLabels $builerLabels | nindent 4 }}
+  annotations:
+    {{- include "libchart.annotations" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}

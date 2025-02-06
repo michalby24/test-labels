@@ -1,3 +1,16 @@
+labels:
+  createdBy: "michal" 
+  component: "backend"
+  partOf: "michsi"
+  environment: "dev" 
+  releaseVersion: "v1.1.0"
+  owner: "infra"
+  gisDomain: "infra"
+
+monitoring:
+  path: "/metrics"
+  port: "80"
+
 global:
   cloudProvider: {}
   tracing: {}
