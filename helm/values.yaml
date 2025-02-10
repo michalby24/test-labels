@@ -5,7 +5,7 @@ deployment:
   environment: "dev" 
   releaseVersion: "v1.1.0"
   owner: "infra"
-  gisDomain: "infra"
+  gisDomain: "raster"
   
 monitoring:
   path: "/metrics"

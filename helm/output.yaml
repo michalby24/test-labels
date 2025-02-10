@@ -45,7 +45,7 @@ spec:
     app.kubernetes.io/instance: release-name
 ---
 # Source: test-labels/templates/deployment.yaml
-michsimichalapiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: release-name-test-labels-deployment
@@ -69,7 +69,7 @@ metadata:
     mapcolonies.io/environment: "dev"
     mapcolonies.io/release-version: "v1.1.0"
     mapcolonies.io/owner: "infra"
-    mapcolonies.io/gis-domain: "infra"
+    mapcolonies.io/gis-domain: "raster"
   annotations:
     checksum/configmap: "1ae968e8fc7df7e0bd128777712dcdcec6f3808b222cb3ef66ba04e09b29adaf"
     prometheus.io/scrape: "true"
